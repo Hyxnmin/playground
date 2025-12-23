@@ -1,0 +1,14 @@
+services:
+  # Go 웹 애플리케이션
+  my-app:
+    build: 
+      context: ..
+      dockerfile: deploy/Dockerfile
+    ports:
+      - "8080:8080" # Host:container 포트 포워딩
+    depends_on:
+      - redis # Redis 컨테이너가 먼저 켜진 후 실행되도록 실행 보장
+
+  redis:
+    image: redis:alpine
+    # 컨테이너 이름을 호스트네임으로 사용하여 DNS 해석 가능 (코드에서 "redis:6379"로 접속)
