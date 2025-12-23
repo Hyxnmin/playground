@@ -6,9 +6,14 @@ services:
       dockerfile: deploy/Dockerfile
     ports:
       - "8080:8080" # Host:container 포트 포워딩
+    environment:
+      # "localhost"가 아니라 "redis"(서비스 이름)로 접속하라고 알려줌
+      - REDIS_ADDR=redis:6379
     depends_on:
       - redis # Redis 컨테이너가 먼저 켜진 후 실행되도록 실행 보장
 
   redis:
     image: redis:alpine
-    # 컨테이너 이름을 호스트네임으로 사용하여 DNS 해석 가능 (코드에서 "redis:6379"로 접속)
+    container_name: redis-db  # (참고) 호스트네임은 서비스 이름인 'redis'를 씁니다
+    ports:
+      - "6379:6379"

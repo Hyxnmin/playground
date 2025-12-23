@@ -41,6 +41,20 @@ func main() {
 		fmt.Fprintf(w, "방문자 수: %d", count)
 	})
 
+	// 리셋 기능 추가
+	http.HandleFunc("/reset", func(w http.ResponseWriter, r *http.Request) {
+		// .Err() 를 꼭 붙여줘야 합니다!
+		// 마지막 인자 0은 "만료 시간 없음(영구 저장)"이라는 뜻입니다.
+		err := rdb.Set(ctx, "visitors", 0, 0).Err()
+
+		if err != nil {
+			fmt.Fprintf(w, "초기화 실패: %v", err)
+			return
+		}
+		fmt.Fprintf(w, "방문자 수가 0으로 초기화되었습니다.")
+		fmt.Println("관리자가 방문자 수를 리셋했습니다.") // 서버 로그에도 남기기
+	})
+
 	// 서버 시작 (Listen & Serve)
 	// C 소켓 프로그래밍의 bind + listen + accept 무한루프를 한 방에 해줌.
 	http.ListenAndServe(":8080", nil)
