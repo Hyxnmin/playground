@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  # 1. 레디스 (데이터베이스)
+  redis-db:                # 👈 이 이름이 호스트네임이 됩니다!
+    image: redis:alpine
+    container_name: redis-db
+    networks:
+      - my-net
+
+  # 2. 님의 Go 앱
+  app:
+    image: hyxnminp/go-redis-counter:latest
+    container_name: my-app
+    ports:
+      - "8080:8080"        # 외부 8080 <-> 내부 8080 연결
+    environment:
+      - REDIS_ADDR=redis-db:6379  # 👈 옆방 이름(redis-db)을 알려줌
+    depends_on:
+      - redis-db           # Redis가 켜진 뒤에 실행하라는 뜻
+    networks:
+      - my-net
+
+# 3. 가상의 와이파이망 정의
+networks:
+  my-net:
+    driver: bridge
