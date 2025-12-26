@@ -1,6 +1,6 @@
 # Go Redis visitor Counter
 
-Go와 Redis를 Docker compose로 엮어서 만든 방문자수 카운터
+Go와 Redis를 Docker compose로 엮어서 만든 방문자 수 카운터
 C언어/커널 베이스에서 도커 이미지 최적화(Multi-stage build) 실습용
 
 ## Key Features
