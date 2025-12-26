@@ -59,3 +59,5 @@ func main() {
 	// C 소켓 프로그래밍의 bind + listen + accept 무한루프를 한 방에 해줌.
 	http.ListenAndServe(":8080", nil)
 }
+
+// CI/CD 테스트용 주석입니다. (삭제 예정)
