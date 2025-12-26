@@ -3,6 +3,10 @@ name: Go-Docker CI/CD
 on:
   push:
     branches: [ "master", "main" ]
+    paths:
+      - 'go-redis-counter/**'
+
+  workflow_dispatch:
 
 jobs:
   build-and-push:
@@ -31,4 +35,4 @@ jobs:
           context: ./go-redis-counter
           file: ./go-redis-counter/deploy/Dockerfile
           push: true
-          tags: hyxnminp/go-redis-counter:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/go-redis-counter:latest
