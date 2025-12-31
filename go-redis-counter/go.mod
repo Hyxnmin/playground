@@ -1,4 +1,4 @@
-module practice_docker
+module go-redis-counter
 
 go 1.23
 

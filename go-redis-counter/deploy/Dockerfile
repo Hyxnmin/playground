@@ -1,4 +1,3 @@
-
 # Go 컴파일러가 포한된 무거운 이미지 사용
 FROM golang:1.23 AS builder
 
