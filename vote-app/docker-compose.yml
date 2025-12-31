@@ -1,0 +1,16 @@
+services:
+  my-vote-app:
+    # 핵심 수정: build: . 은 "현재 폴더에 있는 Dockerfile을 써라"는 뜻입니다.
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - REDIS_ADDR=redis-db:6379
+    depends_on:
+      - redis-db
+
+  redis-db:
+    image: redis:alpine
+    container_name: redis-db
+    ports:
+      - "6379:6379"
